@@ -8,6 +8,40 @@
 </head>
 <body>
     <div class="container">
+
+    <?php 
+
+    include("php/config.php");
+    if(isset($_POST['submi'])){
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $age = $_POST['age'];
+        $password = $_POST['password'];
+
+        //verifying the unique email
+
+        $verify_query = mysqli_query($con, "SELECT Email FROM users WHERE Email='$email'");
+
+        if(mysqli_num_rows($verify_query) !=0 ){
+            echo "<div class='message'>
+                       <p>This email is used, Try another One Please!</p>
+                 </div> <br>";
+            echo "<a href='javascript:self.history.back()'><button class='btn' >Go Back</button>";                 
+        } else {
+
+            mysqli_query($con,"INSERT INTO users(Username,Email,Age,Password) VALUES('$username', '$email, '$age', '$password')") or die("Erroe Occured");
+
+            echo "<div class='message'>
+                       <p>Registration sucessfully</p>
+                 </div> <br>";
+            echo "<a href='index.php'><button class='btn' >Login Now</button>";                 
+        } 
+
+        
+    }else{
+
+
+    ?>
         <div class="box form-box">
             <header>Sign Up</header>
             <form action="" method="post">
@@ -32,10 +66,11 @@
                      <input type="submit" class="btn" name="submit" value="Login" required>
                 </div>
                 <div class="links">
-                   Already a member? <a href="index.html">Sign in</a>
+                   Already a member? <a href="index.php">Sign in</a>
                 </div>
             </form>
         </div>
+        <?php } ?>
     </div>
 </body>
 </html>

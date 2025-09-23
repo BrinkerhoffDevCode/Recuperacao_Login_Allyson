@@ -1,3 +1,9 @@
+<?php
+
+    SESSION_START();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +30,7 @@
                      <input type="submit" class="btn" name="submit" value="Login" required>
                 </div>
                 <div class="links">
-                    Don't have account? <a href="register.html">Sign Up Now</a>
+                    Don't have account? <a href="register.php">Sign Up Now</a>
                 </div>
             </form>
         </div>
