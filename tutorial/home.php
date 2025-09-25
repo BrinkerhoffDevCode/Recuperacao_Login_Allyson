@@ -1,3 +1,11 @@
+<?php 
+    SESSION_START();
+
+    include("php/config.php");
+    if(!isset($_SESSION['valid'])){
+        header("Location: index.php");
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,8 +21,25 @@
         </div>
 
         <div class="right-links">
-            <a href="#">Change Profile</a>
-            <a href="logout.php"> <button class="btn">log Out</button> </a>
+
+
+            <?php 
+
+            $id = $_SESSION['id'];
+            $query = mysqli_query($con,"SELECT*FROM users WHERE Id=$id");
+
+            while($result = mysqli_fetch_assoc($query)){
+                $res_Uname =  $result['Username'];
+                $res_Email =  $result['Email'];
+                $res_Age =  $result['Age'];
+                $res_Id =  $result['Id'];
+            }
+
+            echo "<a href='edit.php?Id=$res_id'>Change Profile</a>";
+            ?>
+
+            
+            <a href="php/logout.php"> <button class="btn">log Out</button> </a>
 
         </div>
     </div>
@@ -23,15 +48,15 @@
         <div class="main-box-top">
             <div class="top">
                 <div class="box">
-                    <p>hello <b>Ludiflex</b>, Welcome</p>
+                    <p>hello <b><?php echo $res_Uname?><b>Ludiflex</b>, Welcome</p>
                 </div>
                 <div class="box">
-                    <p>Your email is  <b>123@gmail.com</b>.</p>
+                    <p>Your email is  <b><?php echo $res_Email?></b>.</p>
                 </div>
             </div>
             <div class="bottom">
                 <div class="box">
-                    <p>And you are <b>20 years old</b>.</p>
+                    <p>And you are <b><?php echo $res_Age?></b>.</p>
                 </div>
             </div>
         </div>
